@@ -1,10 +1,10 @@
 {
     "appKeys": {},
     "capabilities": [
-        "location"
+        ""
     ],
-    "companyName": "abdulwahaab.ahmed710@gmail.com",
-    "longName": "OCTranspoPebble",
+    "companyName": "filipslatinac@hotmail.com",
+    "longName": "Menu",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -32,12 +32,12 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "OCTranspoPebble",
+    "shortName": "Menu",
     "targetPlatforms": [
         "aplite",
         "basalt"
     ],
-    "uuid": "7fe01dd5-a371-4bea-97d8-c86bdbf642d7",
+    "uuid": "2a26238b-9a0f-4e97-b88e-f5e16d078d5c",
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
