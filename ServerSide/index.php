@@ -13,10 +13,10 @@ $BusData = json_decode($json,true);
 
 //var_dump($BusData);
 
-$servername = "abdulwahaab.ca.mysql";
-$username = "abdulwahaab_ca";
-$password = "UAZQvBJ8";
-$dbname = "abdulwahaab_ca";
+$servername = "Host";
+$username = "UserName";
+$password = "Password";
+$dbname = "DataBase Name";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
