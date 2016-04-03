@@ -8,28 +8,28 @@ var UI = require('ui');
 var Vector2 = require('vector2');
 var ID = [];
 var ajax = require('ajax');
-//var LAT = "";
-//var LONG = "";
-var CustomURL = "http://abdulwahaab.ca/octranspo/index.php?busNo=3021";
+var LAT = "-75.6892807";
+var LONG = "45.423664";
+var CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
 var Destinations = [];
 var BusNumbers = [];
 var Times = [];
 
 function WRAP (){
   for(var i = 0; i < BusNumbers.length; i++) {
-  var title = BusNumbers[i];
+    var title ="#" + BusNumbers[i] + "  in " +Times[i] + " mins";
   console.log(title);
   //title = title.charAt(0).toUpperCase() + title.substring(1);
   
-  var subtitle = Destinations[i]/* + "\n" + Times[i]*/;
-  console.log(subtitle);
+  var subtitle = Destinations[i];
+  console.log('test '+Destinations[i]);
 
   //subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substring(1);
 
     
   ID.push({
       title:title,
-     subtitle:subtitle      
+      subtitle:subtitle      
     });
   }
   ShowOptions();
@@ -54,9 +54,9 @@ main.add(text);
 main.show();
 
 
-/*function success(pos) {
-  LAT = pos.coords.latitude;
-  LONG = pos.coords.longitude;
+function success(pos) {
+  //LAT = pos.coords.latitude;
+  //LONG = pos.coords.longitude;
 }
 
 function error(err) {
@@ -72,7 +72,7 @@ var options = {
   maximumAge: 10000,
   timeout: 10000
 };
-navigator.geolocation.getCurrentPosition(success, error, options);*/
+navigator.geolocation.getCurrentPosition(success, error, options);
 
 ajax(
   {
@@ -89,7 +89,9 @@ ajax(
         Times.push(Routes.Route[i].Trips[0].AdjustedScheduleTime);
       }
       else{
-        Destinations.push("No more Busses at this time");
+        Destinations.push("No more Busses");
+        Times.push("");
+
       }
     }
     
@@ -102,6 +104,7 @@ ajax(
 function ShowOptions(){
   var menu = new UI.Menu({
     sections: [ {
+      title: "Available Buses",
       items:ID
     }]});
   main.hide();
