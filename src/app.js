@@ -55,8 +55,9 @@ main.add(text);
 main.show();
 
 function ShowWrong(){
+  apiKey = 'Your Google Api Key';
   ajax({
-    url:"https://maps.googleapis.com/maps/api/geocode/json?latlng=" + LAT +"," +LONG+"&key=AIzaSyACIigyteIWTgWMIweQDFxtwE0n2KBIHLE",
+    url:"https://maps.googleapis.com/maps/api/geocode/json?latlng=" + LAT +"," +LONG+"&key=" + apiKey,
     type:'json'
     },
       function(data){
