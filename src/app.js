@@ -8,12 +8,13 @@ var UI = require('ui');
 var Vector2 = require('vector2');
 var ID = [];
 var ajax = require('ajax');
-var LAT = "-75.6892807";
-var LONG = "45.423664";
+var LAT = "";
+var LONG = "";
 var CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
 var Destinations = [];
 var BusNumbers = [];
 var Times = [];
+var key = true;
 
 function WRAP (){
   for(var i = 0; i < BusNumbers.length; i++) {
@@ -53,10 +54,44 @@ var text = new UI.Text({
 main.add(text);
 main.show();
 
+function ShowWrong(){
+  ajax({
+    url:"https://maps.googleapis.com/maps/api/geocode/json?latlng=" + LAT +"," +LONG+"&key=AIzaSyACIigyteIWTgWMIweQDFxtwE0n2KBIHLE",
+    type:'json'
+    },
+      function(data){
+        var Info = data.results[1].formatted_address;
+        var partsOfStr = Info.split(',');
+        var LOC = partsOfStr[1].replace(/\s/g,'');
+        if(LOC !== "Ottawa"){
+          console.log("inside of here");
+          var INFOSCREEN = new UI.Window();
+
+          var text = new UI.Text({
+          position: new Vector2(0, 0),
+          size: new Vector2(144, 168),
+          text:'Not available outside of Ottawa',
+          font:'DROID_SERIF_28_BOLD',
+          color:'yellow',
+          textOverflow:'wrap',
+          textAlign:'center',
+	        backgroundColor:'black'
+  
+});
+
+INFOSCREEN.add(text);
+key = false;
+main.hide();
+INFOSCREEN.show();
+        }
+      });
+}
+
 
 function success(pos) {
-  //LAT = pos.coords.latitude;
-  //LONG = pos.coords.longitude;
+  LAT = pos.coords.latitude;
+  LONG = pos.coords.longitude;
+  ShowWrong();
 }
 
 function error(err) {
@@ -73,6 +108,8 @@ var options = {
   timeout: 10000
 };
 navigator.geolocation.getCurrentPosition(success, error, options);
+
+if(key){
 
 ajax(
   {
@@ -100,6 +137,7 @@ ajax(
 
 );
 
+}
 
 function ShowOptions(){
   var menu = new UI.Menu({
