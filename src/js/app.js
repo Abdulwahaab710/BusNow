@@ -8,13 +8,12 @@ var UI = require('ui');
 var Vector2 = require('vector2');
 var ID = [];
 var ajax = require('ajax');
-var LAT = "";
-var LONG = "";
-var CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
+//var LONG = '-75.6892807';
+//var LAT = '45.423664';
 var Destinations = [];
 var BusNumbers = [];
 var Times = [];
-var key = true;
+//var key = true;
 
 function WRAP (){
   for(var i = 0; i < BusNumbers.length; i++) {
@@ -54,8 +53,7 @@ var text = new UI.Text({
 main.add(text);
 main.show();
 
-function ShowWrong(){
-  apiKey = 'Your Google Api Key';
+/*function ShowWrong(){
   ajax({
     url:"https://maps.googleapis.com/maps/api/geocode/json?latlng=" + LAT +"," +LONG+"&key=" + apiKey,
     type:'json'
@@ -87,12 +85,19 @@ INFOSCREEN.show();
         }
       });
 }
-
-
+*/
+var LAT;
+var LONG;
+var CustomURL;
 function success(pos) {
-  LAT = pos.coords.latitude;
-  LONG = pos.coords.longitude;
-  ShowWrong();
+  LAT = String(pos.coords.latitude);
+  LONG = String(pos.coords.longitude);
+  CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
+  console.log(LAT);
+  console.log(LONG);
+  console.log(CustomURL);
+  loadBus(LAT,LONG);
+  
 }
 
 function error(err) {
@@ -109,17 +114,20 @@ var options = {
   timeout: 10000
 };
 navigator.geolocation.getCurrentPosition(success, error, options);
-
-if(key){
-
+//var CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
+//console.log(CustomURL);
+function loadBus(lat,long){
+//if(key){
+  var CusURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + lat + "&long=" + long;
 ajax(
   {
-    url:CustomURL,
+    url:CusURL,
     type:'json'
     
   },
   function(Data){
     var Routes = Data.GetRouteSummaryForStopResult.Routes;
+    console.log(CusURL);
     for(var i = 0; i< Routes.Route.length;i++){
       BusNumbers.push(Routes.Route[i].RouteNo);
       if (Routes.Route[i].Trips.length > 0){
@@ -137,8 +145,9 @@ ajax(
   }
 
 );
-
 }
+//}
+//}
 
 function ShowOptions(){
   var menu = new UI.Menu({
@@ -149,6 +158,3 @@ function ShowOptions(){
   main.hide();
   menu.show();
 }
-
-
-

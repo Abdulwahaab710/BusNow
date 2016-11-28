@@ -3,8 +3,8 @@
     "capabilities": [
         "location"
     ],
-    "companyName": "filipslatinac@hotmail.com",
-    "longName": "Menu",
+    "companyName": "BusNow",
+    "longName": "BusNow",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -32,10 +32,11 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Menu",
+    "shortName": "BusNow",
     "targetPlatforms": [
         "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "2a26238b-9a0f-4e97-b88e-f5e16d078d5c",
     "versionCode": 1,
