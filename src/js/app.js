@@ -8,8 +8,8 @@ var UI = require('ui');
 var Vector2 = require('vector2');
 var ID = [];
 var ajax = require('ajax');
-//var LONG = '-75.6892807';
-//var LAT = '45.423664';
+var LONG = '-75.6892807';
+var LAT = '45.423664';
 var Destinations = [];
 var BusNumbers = [];
 var Times = [];
@@ -86,12 +86,14 @@ INFOSCREEN.show();
       });
 }
 */
-var LAT;
-var LONG;
+//var LAT;
+//var LONG;
+
+  loadBus(LAT,LONG);
 var CustomURL;
 function success(pos) {
-  LAT = String(pos.coords.latitude);
-  LONG = String(pos.coords.longitude);
+  //LAT = String(pos.coords.latitude);
+  //LONG = String(pos.coords.longitude);
   CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
   console.log(LAT);
   console.log(LONG);
