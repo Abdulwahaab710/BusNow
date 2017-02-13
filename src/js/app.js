@@ -18,13 +18,13 @@ function WRAP (){
   
   for(var i = 0; i < BusNumbers.length; i++) {
     var title ="#" + BusNumbers[i] + "  in " +Times[i] + " mins";
-  //title = title.charAt(0).toUpperCase() + title.substring(1);
-  var subtitle = Destinations[i];
-  //subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substring(1);
-  ID.push({
-      title:title,
-      subtitle:subtitle      
-    });
+    //title = title.charAt(0).toUpperCase() + title.substring(1);
+    var subtitle = Destinations[i];
+    //subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substring(1);
+    ID.push({
+        title:title,
+        subtitle:subtitle      
+      });
   }
   ShowOptions();
 }
@@ -41,7 +41,6 @@ var text = new UI.Text({
   textOverflow:'wrap',
   textAlign:'center',
 	backgroundColor:'black'
-  
 });
 
 main.add(text);
@@ -74,7 +73,7 @@ function error(err) {
       color:'red',
       textOverflow:'wrap',
       textAlign:'center',
-    	backgroundColor:'black'
+      backgroundColor:'black'
     });
     main.hide();
     permission_denied.add(error_msg);
@@ -92,35 +91,34 @@ var options = {
 navigator.geolocation.getCurrentPosition(success, error, options);
 function loadBus(lat,long){
   var CusURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + lat + "&long=" + long;
-ajax(
-  {
-    url:CusURL,
-    type:'json'
-  },
-  function(Data){
-    var Routes = Data.GetRouteSummaryForStopResult.Routes;
-    for(var i = 0; i< Routes.Route.length;i++){
-      BusNumbers.push(Routes.Route[i].RouteNo);
-      if (Routes.Route[i].Trips && Routes.Route[i].Trips.length > 0){
-        Destinations.push(Routes.Route[i].RouteHeading);
-        Times.push(Routes.Route[i].Trips[0].AdjustedScheduleTime);
+  ajax(
+    {
+      url:CusURL,
+      type:'json'
+    },
+    function(Data){
+      var Routes = Data.GetRouteSummaryForStopResult.Routes;
+      for(var i = 0; i< Routes.Route.length;i++){
+        BusNumbers.push(Routes.Route[i].RouteNo);
+        if (Routes.Route[i].Trips && Routes.Route[i].Trips.length > 0){
+          Destinations.push(Routes.Route[i].RouteHeading);
+          Times.push(Routes.Route[i].Trips[0].AdjustedScheduleTime);
+        }
+        else{
+          Destinations.push("No more Busses");
+          Times.push("");
+        }
       }
-      else{
-        Destinations.push("No more Busses");
-        Times.push("");
-
-      }
+    WRAP(); 
+      console.log("Wrap");
     }
-   WRAP(); 
-    console.log("Wrap");
-  }
 
-);
+  );
 }
 
 function ShowOptions(){
   var menu = new UI.Menu({
-    sections: [ {
+    sections: [{
       title: "Available Buses",
       items:ID
     }]});
