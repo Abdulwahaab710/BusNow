@@ -84,22 +84,22 @@ function error(err) {
   }
 }
 
-var options = {
+let options = {
   enableHighAccuracy: true,
   maximumAge: 10000,
   timeout: 10000
 };
 navigator.geolocation.getCurrentPosition(success, error, options);
 function loadBus(lat,long){
-  var CusURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + lat + "&long=" + long;
+  let CusURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + lat + "&long=" + long;
   ajax(
     {
       url:CusURL,
       type:'json'
     },
     function(Data){
-      var Routes = Data.GetRouteSummaryForStopResult.Routes;
-      for(var i = 0; i< Routes.Route.length;i++){
+      let Routes = Data.GetRouteSummaryForStopResult.Routes;
+      for(let i = 0; i< Routes.Route.length;i++){
         if (Routes.Route[i].Trips.length === undefined || Routes.Route[i].Trips.length > 0){
           BusNumbers.push(Routes.Route[i].RouteNo);
           Destinations.push(Routes.Route[i].RouteHeading);
@@ -117,7 +117,7 @@ function loadBus(lat,long){
 }
 
 function ShowOptions(){
-  var menu = new UI.Menu({
+  let menu = new UI.Menu({
     sections: [{
       title: "Available Buses",
       items:ID
