@@ -6,9 +6,9 @@
 
 /*jshint esversion: 6 */
 // Import statements
-const UI = require('ui');
-const Vector2 = require('vector2');
-const ajax = require('ajax');
+const UI = require("ui");
+const Vector2 = require("vector2");
+const ajax = require("ajax");
 
 let ID = [];
 let LONG = '-75.6892807';
@@ -27,7 +27,7 @@ function WRAP (){
         subtitle:subtitle      
       });
   }
-  ShowOptions();
+  showOptions();
 }
 
 
@@ -51,14 +51,11 @@ main.show();
 //let LONG;
 
 loadBus(LAT,LONG);
-let CustomURL;
 function success(pos) {
-  //LAT = String(pos.coords.latitude);
-  //LONG = String(pos.coords.longitude);
+  let CustomURL;
+  LAT = String(pos.coords.latitude);
+  LONG = String(pos.coords.longitude);
   CustomURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + LAT + "&long=" + LONG;
-  /*console.log(LAT);
-  console.log(LONG);
-  console.log(CustomURL);*/
   loadBus(LAT,LONG);
   
 }
@@ -116,7 +113,7 @@ function loadBus(lat,long){
   );
 }
 
-function ShowOptions(){
+function showOptions(){
   let menu = new UI.Menu({
     sections: [{
       title: "Available Buses",
