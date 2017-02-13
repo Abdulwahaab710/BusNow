@@ -4,10 +4,13 @@
  * This is where you write your app.
  */
 
-var UI = require('ui');
-var Vector2 = require('vector2');
+/*jshint esversion: 6 */
+// Import statements
+const UI = require('ui');
+const Vector2 = require('vector2');
+const ajax = require('ajax');
+
 var ID = [];
-var ajax = require('ajax');
 var LONG = '-75.6892807';
 var LAT = '45.423664';
 var Destinations = [];
@@ -17,7 +20,7 @@ var Times = [];
 function WRAP (){
   
   for(var i = 0; i < BusNumbers.length; i++) {
-    var title ="#" + BusNumbers[i] + "  in " +Times[i] + " mins";
+    var title = "#" + BusNumbers[i] + "  in " +Times[i] + " mins";
     //title = title.charAt(0).toUpperCase() + title.substring(1);
     var subtitle = Destinations[i];
     //subtitle = subtitle.charAt(0).toUpperCase() + subtitle.substring(1);
@@ -99,18 +102,17 @@ function loadBus(lat,long){
     function(Data){
       var Routes = Data.GetRouteSummaryForStopResult.Routes;
       for(var i = 0; i< Routes.Route.length;i++){
-        BusNumbers.push(Routes.Route[i].RouteNo);
-        if (Routes.Route[i].Trips && Routes.Route[i].Trips.length > 0){
+        if (Routes.Route[i].Trips.length === undefined || Routes.Route[i].Trips.length > 0){
+          BusNumbers.push(Routes.Route[i].RouteNo);
           Destinations.push(Routes.Route[i].RouteHeading);
-          Times.push(Routes.Route[i].Trips[0].AdjustedScheduleTime);
-        }
-        else{
-          Destinations.push("No more Busses");
-          Times.push("");
+          if (Routes.Route[i].Trips.hasOwnProperty("AdjustedScheduleTime")){
+            Times.push(Routes.Route[i].Trips.AdjustedScheduleTime);  
+          }else{
+            Times.push(Routes.Route[i].Trips[0].AdjustedScheduleTime);
+          }
         }
       }
     WRAP(); 
-      console.log("Wrap");
     }
 
   );
