@@ -17,7 +17,7 @@ var Destinations = [];
 var BusNumbers = [];
 var Times = [];
 
-function WRAP (){
+function wrap (){
   
   for(var i = 0; i < BusNumbers.length; i++) {
     var title = "#" + BusNumbers[i] + "  in " +Times[i] + " mins";
@@ -91,12 +91,12 @@ var options = {
   maximumAge: 10000,
   timeout: 10000
 };
-navigator.geolocation.getCurrentPosition(success, error, options);
+//navigator.geolocation.getCurrentPosition(success, error, options);
 function loadBus(lat,long){
-  var CusURL = "http://abdulwahaab.ca/octranspo/testing.php?lat=" + lat + "&long=" + long;
+  var cusURL = "https://abdulwahaab.ca/octranspo/testing.php?lat=" + lat + "&long=" + long;
   ajax(
     {
-      url:CusURL,
+      url:cusURL,
       type:'json'
     },
     function(Data){
@@ -112,7 +112,7 @@ function loadBus(lat,long){
           }
         }
       }
-    WRAP(); 
+    wrap(); 
     }
 
   );
